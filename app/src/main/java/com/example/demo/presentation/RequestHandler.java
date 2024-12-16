@@ -2,6 +2,7 @@ package com.example.demo.presentation;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,14 +11,24 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class RequestHandler implements HttpHandler {
 
     Map<String, ResourceMethodHandler> handlers = new HashMap<>();
 
-    public RequestHandler() {
-        handlers.put(HomeGetHandler.KEY, new HomeGetHandler());
-        handlers.put(CalculationCreateHandler.KEY, new CalculationCreateHandler());
-        handlers.put(CalculationListHandler.KEY, new CalculationListHandler());
+
+    public RequestHandler(
+            HomeGetHandler homeGetHandler,
+            CalculationCreateHandler calculationCreateHandler,
+            CalculationListHandler calculationListHandler
+    ) {
+        addResourceMethodHandler(homeGetHandler);
+        addResourceMethodHandler(calculationCreateHandler);
+        addResourceMethodHandler(calculationListHandler);
+    }
+
+    private void addResourceMethodHandler(ResourceMethodHandler handler) {
+        handlers.put(handler.key(), handler);
     }
 
     @Override

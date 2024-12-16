@@ -6,11 +6,10 @@ import com.example.demo.dto.CalculationResponseDto;
 import com.example.demo.infrastructure.Calculation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CalculationCreateHandler extends ResourceMethodHandler {
-
-    public final static String KEY = "POST /calculations";
-
     private final Calculator calculator = new Calculator();
 
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -35,4 +34,10 @@ public class CalculationCreateHandler extends ResourceMethodHandler {
                 ));
 
     }
+
+    @Override
+    public String key() {
+        return "POST /calculations";
+    }
+
 }
