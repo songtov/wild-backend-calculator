@@ -1,20 +1,24 @@
 package com.example.demo.application;
 
 import com.example.demo.infrastructure.Calculation;
-import com.example.demo.infrastructure.CalculationRepository;
+import com.example.demo.infrastructure.InMemoryCalculationRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class Calculator {
 
-    private final CalculationRepository calculationRepository
-            = CalculationRepository.getInstance();
+
+    private final CalculationRepository calculationRepository;
 
     private final Map<String, Operator> operators = new HashMap<>();
 
-    public Calculator(){
+    public Calculator(CalculationRepository calculationRepository
+    ) {
+        this.calculationRepository = calculationRepository;
         operators.put("+", new OperatorPlus());
         operators.put("-", new OperatorMinus());
         operators.put("*", new OperatorMultiply());
@@ -28,6 +32,7 @@ public class Calculator {
         Calculation calculation = new Calculation(
                 operatorSymbol, number1, number2, result
         );
+
 
         calculationRepository.add(calculation);
 

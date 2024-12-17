@@ -10,9 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CalculationCreateHandler extends ResourceMethodHandler {
-    private final Calculator calculator = new Calculator();
+    private final Calculator calculator;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
+
+    public CalculationCreateHandler(Calculator calculator, ObjectMapper objectMapper) {
+        this.calculator = calculator;
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public String handle(String content) throws JsonProcessingException {

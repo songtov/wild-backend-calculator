@@ -11,9 +11,9 @@ import java.net.InetSocketAddress;
 @Component
 public class Server {
 
-    private final HttpHandler requestHandler;
+    private final RequestHandler requestHandler;
 
-    public Server(HttpHandler requestHandler) {
+    public Server(RequestHandler requestHandler) {
         this.requestHandler = requestHandler;
     }
 

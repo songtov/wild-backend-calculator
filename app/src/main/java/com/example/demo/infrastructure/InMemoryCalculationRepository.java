@@ -1,28 +1,21 @@
 package com.example.demo.infrastructure;
 
+import com.example.demo.application.CalculationRepository;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculationRepository {
+@Component
+public class InMemoryCalculationRepository implements CalculationRepository {
     private final List<Calculation> calculations = new ArrayList<>();
 
-    private static CalculationRepository instance = null;
-
-    protected CalculationRepository() {
-        //
-    }
-
-    public static CalculationRepository getInstance() {
-        if (instance == null) {
-            instance = new CalculationRepository();
-        }
-        return instance;
-    }
-
+    @Override
     public void add(Calculation calculation) {
         calculations.add(calculation);
     }
 
+    @Override
     public List<Calculation> getCalculations() {
         return calculations;
     }

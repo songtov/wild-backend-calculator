@@ -27,15 +27,11 @@ public class RequestHandler implements HttpHandler {
         addResourceMethodHandler(calculationListHandler);
     }
 
-    private void addResourceMethodHandler(ResourceMethodHandler handler) {
-        handlers.put(handler.key(), handler);
-    }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
 
         String requestKey = getRequestKey(exchange);
-        System.out.println(requestKey);
 
         if (!handlers.containsKey(requestKey)) {
             exchange.sendResponseHeaders(404, -1);
@@ -48,6 +44,11 @@ public class RequestHandler implements HttpHandler {
 
         sendResponseContent(exchange, responseContent);
     }
+
+    private void addResourceMethodHandler(ResourceMethodHandler handler) {
+        handlers.put(handler.key(), handler);
+    }
+
 
     private void sendResponseContent(
             HttpExchange exchange,
